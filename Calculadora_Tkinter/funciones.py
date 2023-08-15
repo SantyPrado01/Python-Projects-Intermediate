@@ -31,6 +31,14 @@ def borrar(entrada_texto):
     i = 0
     return i
 
+def borrar_uno(entrada_texto):
+	global i 
+	if i==-1:
+		pass
+	else:
+		entrada_texto.delete(i,last =None)
+		i-=1
+
 def resultado(ecuacion, entrada_texto, ventana):
     ecuacion = entrada_texto.get()
     # Reemplazar '^' por '**'
