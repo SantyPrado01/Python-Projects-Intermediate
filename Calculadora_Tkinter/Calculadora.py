@@ -1,5 +1,4 @@
 from tkinter import * 
-from tkinter.font import Font
 import math
 from funciones import *
 
