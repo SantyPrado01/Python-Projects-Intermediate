@@ -3,8 +3,6 @@ from tkinter.font import Font
 import math
 from funciones import *
 
-
-
 ventana = Tk()
 ventana.title('Calculadora')
 
@@ -12,10 +10,11 @@ ventana.configure(bg='black')
 ventana.iconbitmap('Calculadora_Tkinter\icono.ico')
 ventana.resizable(width=False, height=False)
 fuente_botones =('Arial',14)
+
 #Entrada de Texto
 
 entrada_texto = Entry(ventana, font =('Arial', 22), justify=RIGHT, bg='black', fg='white')
-entrada_texto.grid(row=0, column = 0, columnspan=4)
+entrada_texto.grid(row=0, column = 0, columnspan=5, pady=15, padx=5, ipadx=5, ipady=15)
 
 #Botones Numeros 0 al 9
 
@@ -88,7 +87,5 @@ boton_parentesis2.grid(row = '2', column = '2')
 
 boton_punto = Button(ventana, text = '.',font=fuente_botones, width= 6, height=2, command= lambda: click_boton('.', entrada_texto), bg='#252525', fg='white')
 boton_punto.grid(row = '7', column = '2')
-
-
 
 ventana.mainloop()
