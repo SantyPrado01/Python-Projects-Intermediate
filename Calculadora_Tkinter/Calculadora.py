@@ -8,7 +8,7 @@ ventana.title('Calculadora')
 ventana.configure(bg='black')
 ventana.iconbitmap('Calculadora_Tkinter\icono.ico')
 ventana.resizable(width=False, height=False)
-fuente_botones =('Arial',14)
+fuente_botones = ('Arial',14)
 
 #Entrada de Texto
 

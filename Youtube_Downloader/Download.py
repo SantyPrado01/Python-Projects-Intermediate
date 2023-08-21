@@ -7,16 +7,21 @@ def action():
     video = YouTube(link)
     download = video.streams.get_highest_resolution()
     download.download()
+
 def popup():
-    Messagebox.showinfo('About my', 'Link to my linkedin profile: https://www.linkedin.com/in/santiago-prado-a03631228/')
+    Messagebox.showinfo('Informacion', 'Mi perfil de linkedin: https://www.linkedin.com/in/santiago-prado-a03631228/')
 
 
 root = Tk()
 root.config(bd=15)
+root.iconbitmap("youtube.ico")
+
 root.title('YouTube Dowload')
 
-walppaper = PhotoImage(file = 'Download_Youtube\YouTube.png', width = 60, height = 40)
-image = Label(root, image=walppaper, bd=0)
+walppaper = PhotoImage(file = 'youtube.png')
+cambio_img = walppaper.subsample(2,2)
+
+image = Label(root, image=cambio_img)
 image.grid(row=0, column=0)
 
 
@@ -24,18 +29,16 @@ menubar = Menu(root)
 root.config(menu=menubar)
 helpmenu = Menu(menubar, tearoff=0)
 
+menubar.add_command(label= 'Informacion', command=popup)
 
-menubar.add_command(label= 'Author Information', command=popup)
-menubar.add_command(label= 'Exit', command = root.destroy)
-
-instructions = Label(root, text = 'Program created to download videos from youtube\n')
-instructions.grid(row=0, column=1)
+instructions = Label(root, text = 'Ingresa el Url del video a descargar', font=('Arial',15))
+instructions.grid(row=1, column=0)
 
 videos = Entry(root)
-videos.grid(row=1, column=1)
+videos.grid(row=2, column=0, pady=5, padx=20, ipadx=20, ipady=5)
 
-boton_download = Button(root, text = 'Download', command = action)
-boton_download.grid(row=2, column=1)
+boton_download = Button(root, text = 'Descargar', command = action, width=10, height=2)
+boton_download.grid(row=3, column=0)
 
 root.mainloop()
  
