@@ -7,13 +7,15 @@ def action():
     video = YouTube(link)
     download = video.streams.get_highest_resolution()
     download.download()
-
+    Messagebox.showinfo('Completado','El video se a descargado con éxito.')
+    
 def popup():
     Messagebox.showinfo('Informacion', 'Mi perfil de linkedin: https://www.linkedin.com/in/santiago-prado-a03631228/')
 
 
 root = Tk()
 root.config(bd=15)
+root.resizable(width=False, height=False)
 root.iconbitmap("youtube.ico")
 
 root.title('YouTube Dowload')
@@ -23,7 +25,6 @@ cambio_img = walppaper.subsample(2,2)
 
 image = Label(root, image=cambio_img)
 image.grid(row=0, column=0)
-
 
 menubar = Menu(root)
 root.config(menu=menubar)
