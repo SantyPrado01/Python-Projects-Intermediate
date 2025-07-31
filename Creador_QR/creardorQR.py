@@ -1,29 +1,54 @@
 import qrcode
-import tkinter as tk
-from tkinter import filedialog
+from reportlab.graphics import renderPS
+from reportlab.graphics.shapes import Drawing, Rect
+from reportlab.lib import colors  # <- Importar colores correctamente
+from tkinter import Tk, Entry, Label, Button, filedialog
 
-def generar_codigo():
+def generar_codigo_vectorial():
     link = entry_link.get()
-    codigo = qrcode.make(link)
-    guardar_ruta = filedialog.asksaveasfilename(defaultextension=".png", filetypes=[("Archivos PNG", "*.png")])
-    if guardar_ruta:
-        codigo.save(guardar_ruta)
 
-# Crear la ventana principal
-ventana = tk.Tk()
-ventana.title("Generador de Código QR")
+    # Crear QR como matriz
+    qr = qrcode.QRCode(box_size=10, border=0)
+    qr.add_data(link)
+    qr.make(fit=True)
+    matrix = qr.get_matrix()
+
+    size = len(matrix)
+    box_size = 10
+    drawing = Drawing(width=size * box_size, height=size * box_size)
+
+    # Dibujar cuadrados negros como vectores
+    for y in range(size):
+        for x in range(size):
+            if matrix[y][x]:
+                rect = Rect(
+                    x * box_size,
+                    (size - y - 1) * box_size,  # Invertir eje Y
+                    box_size,
+                    box_size,
+                    fillColor=colors.black,  # <- Color correcto
+                    strokeWidth=0
+                )
+                drawing.add(rect)
+
+    # Guardar archivo EPS
+    guardar_ruta = filedialog.asksaveasfilename(
+        defaultextension=".eps",
+        filetypes=[("Archivo EPS", "*.eps")]
+    )
+
+    if guardar_ruta:
+        renderPS.drawToFile(drawing, guardar_ruta, '')
+
+# Interfaz
+ventana = Tk()
+ventana.title("Generador de QR Vectorial")
 ventana.geometry('300x200')
 
-# Etiqueta y campo de entrada para el link
-label_link = tk.Label(ventana, text="Ingrese el link del código a generar:")
-label_link.pack()
-
-entry_link = tk.Entry(ventana)
+Label(ventana, text="Ingrese el link del código a generar:").pack(pady=10)
+entry_link = Entry(ventana)
 entry_link.pack()
 
-# Botón para generar el código QR
-btn_generar = tk.Button(ventana, text="Generar Código QR", command=generar_codigo)
-btn_generar.pack()
+Button(ventana, text="Generar QR EPS (Vector)", command=generar_codigo_vectorial).pack(pady=10)
 
 ventana.mainloop()
-
